@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inflection Point Partners - Fitness, Health & Longevity</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">Inflection Point Partners</div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about-arthur.html">Arthur Etchells</a></li>
+                <li><a href="about-alex.html">Alex Chisler</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="event-horizon">
+            <svg class="horizon-graphic" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+                <!-- Event Horizon Circle -->
+                <defs>
+                    <radialGradient id="horizonGradient">
+                        <stop offset="0%" style="stop-color:#6366f1;stop-opacity:0.8" />
+                        <stop offset="50%" style="stop-color:#8b5cf6;stop-opacity:0.4" />
+                        <stop offset="100%" style="stop-color:#1e1b4b;stop-opacity:0.1" />
+                    </radialGradient>
+                    <linearGradient id="stretchGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#06b6d4;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+
+                <!-- Central Event Horizon -->
+                <circle cx="600" cy="400" r="200" fill="url(#horizonGradient)" class="pulse-ring"/>
+
+                <!-- Stretching Grid Lines -->
+                <g class="stretch-lines">
+                    <path d="M 100 400 Q 400 350, 600 400 T 1100 400" stroke="url(#stretchGradient)" stroke-width="2" fill="none" opacity="0.6" class="stretch-line line-1"/>
+                    <path d="M 100 350 Q 400 310, 600 350 T 1100 350" stroke="url(#stretchGradient)" stroke-width="1.5" fill="none" opacity="0.4" class="stretch-line line-2"/>
+                    <path d="M 100 450 Q 400 490, 600 450 T 1100 450" stroke="url(#stretchGradient)" stroke-width="1.5" fill="none" opacity="0.4" class="stretch-line line-3"/>
+                    <path d="M 100 300 Q 400 270, 600 300 T 1100 300" stroke="url(#stretchGradient)" stroke-width="1" fill="none" opacity="0.3" class="stretch-line line-4"/>
+                    <path d="M 100 500 Q 400 530, 600 500 T 1100 500" stroke="url(#stretchGradient)" stroke-width="1" fill="none" opacity="0.3" class="stretch-line line-5"/>
+                </g>
+
+                <!-- Particles approaching event horizon -->
+                <circle cx="300" cy="400" r="4" fill="#06b6d4" class="particle particle-1"/>
+                <circle cx="350" cy="380" r="3" fill="#8b5cf6" class="particle particle-2"/>
+                <circle cx="250" cy="420" r="3" fill="#06b6d4" class="particle particle-3"/>
+                <circle cx="850" cy="400" r="4" fill="#06b6d4" class="particle particle-4"/>
+                <circle cx="900" cy="380" r="3" fill="#8b5cf6" class="particle particle-5"/>
+            </svg>
+        </div>
+
+        <div class="hero-content">
+            <h1 class="main-title">Inflection Point Partners</h1>
+            <p class="tagline">Cutting Edge Experiences at the Edge of Fitness, Health & Longevity</p>
+            <p class="subtitle">Where science meets transformation</p>
+        </div>
+    </section>
+
+    <section class="mission">
+        <div class="container">
+            <h2>Our Mission</h2>
+            <p class="mission-text">
+                At Inflection Point Partners, we explore the frontier where human potential meets scientific innovation.
+                Like the event horizon of discovery, we guide you through transformative experiences in fitness,
+                health, and longevity—pushing boundaries and redefining what's possible.
+            </p>
+        </div>
+    </section>
+
+    <section class="team">
+        <div class="container">
+            <h2>Meet the Partners</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <a href="about-arthur.html" style="text-decoration: none; color: inherit;">
+                        <h3>Arthur Etchells</h3>
+                        <p>Co-Founder</p>
+                    </a>
+                    <a href="about-arthur.html" class="btn">Learn More</a>
+                </div>
+                <div class="team-member">
+                    <a href="about-alex.html" style="text-decoration: none; color: inherit;">
+                        <h3>Alex Chisler</h3>
+                        <p>Co-Founder</p>
+                    </a>
+                    <a href="about-alex.html" class="btn">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Inflection Point Partners. All rights reserved.</p>
+            <p><a href="mailto:adetchells@gmail.com">Privacy Policy</a></p>
+        </div>
+    </footer>
+</body>
+</html>
