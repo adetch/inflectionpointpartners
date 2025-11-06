@@ -66,6 +66,82 @@ import EventHorizon from '../components/EventHorizon.astro';
 		</div>
 	</div>
 
+	<!-- Testimonial Section -->
+	<div class="mt-24 sm:mt-32 lg:mt-40">
+		<div class="mx-auto max-w-7xl px-6 lg:px-8">
+			<div class="mx-auto max-w-2xl lg:max-w-none">
+				<div class="rounded-3xl bg-neutral-50 p-8 sm:p-12 ring-1 ring-neutral-950/5 relative overflow-hidden">
+					<!-- Testimonials Container -->
+					<div id="testimonials-container" class="relative min-h-[200px]">
+						<!-- Testimonial 1 -->
+						<div class="testimonial-slide opacity-100 absolute inset-0 transition-opacity duration-500" data-slide="0">
+							<blockquote class="text-neutral-950">
+								<p class="text-xl font-medium tracking-tight sm:text-2xl">
+									"Their insights helped me find the exact inflection points where small changes create exponential results in my training. The experience is so fast and delightful. My Garmin Forerunner 955 has become infinitely more valuable."
+								</p>
+								<footer class="mt-6">
+									<p class="text-base font-semibold text-neutral-950">
+										— Sarah Mitchell
+									</p>
+								</footer>
+							</blockquote>
+						</div>
+
+						<!-- Testimonial 2 -->
+						<div class="testimonial-slide opacity-0 absolute inset-0 transition-opacity duration-500" data-slide="1">
+							<blockquote class="text-neutral-950">
+								<p class="text-xl font-medium tracking-tight sm:text-2xl">
+									"Training for my athletic goals has never been easier. The platform is incredibly fast and the experience is genuinely delightful. I've hit performance milestones I didn't think possible this quickly."
+								</p>
+								<footer class="mt-6">
+									<p class="text-base font-semibold text-neutral-950">
+										— James Chen
+									</p>
+								</footer>
+							</blockquote>
+						</div>
+
+						<!-- Testimonial 3 -->
+						<div class="testimonial-slide opacity-0 absolute inset-0 transition-opacity duration-500" data-slide="2">
+							<blockquote class="text-neutral-950">
+								<p class="text-xl font-medium tracking-tight sm:text-2xl">
+									"Game-changing for training toward my athletic goals. The interface is lightning-fast and the whole experience is just delightful. My Garmin Fenix 7 Pro finally feels like it's living up to its potential."
+								</p>
+								<footer class="mt-6">
+									<p class="text-base font-semibold text-neutral-950">
+										— Michael Rodriguez
+									</p>
+								</footer>
+							</blockquote>
+						</div>
+					</div>
+
+					<!-- Dots Navigation -->
+					<div class="flex justify-center gap-2 mt-8">
+						<button
+							type="button"
+							class="testimonial-dot w-2.5 h-2.5 rounded-full bg-neutral-950 transition-opacity"
+							data-index="0"
+							aria-label="Go to testimonial 1"
+						></button>
+						<button
+							type="button"
+							class="testimonial-dot w-2.5 h-2.5 rounded-full bg-neutral-950 opacity-30 transition-opacity"
+							data-index="1"
+							aria-label="Go to testimonial 2"
+						></button>
+						<button
+							type="button"
+							class="testimonial-dot w-2.5 h-2.5 rounded-full bg-neutral-950 opacity-30 transition-opacity"
+							data-index="2"
+							aria-label="Go to testimonial 3"
+						></button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<!-- Team Section -->
 	<div class="mt-24 sm:mt-32 lg:mt-40">
 		<div class="mx-auto max-w-7xl px-6 lg:px-8">
@@ -98,6 +174,55 @@ import EventHorizon from '../components/EventHorizon.astro';
 		</div>
 	</div>
 </Layout>
+
+<script>
+	// Testimonial carousel functionality
+	document.addEventListener('DOMContentLoaded', () => {
+		const slides = document.querySelectorAll('.testimonial-slide');
+		const dots = document.querySelectorAll('.testimonial-dot');
+		let currentSlide = 0;
+
+		// Show first slide on load
+		if (slides.length > 0) {
+			slides[0].classList.remove('opacity-0');
+			slides[0].classList.add('opacity-100');
+		}
+
+		function showSlide(index) {
+			// Hide all slides
+			slides.forEach((slide) => {
+				slide.classList.remove('opacity-100');
+				slide.classList.add('opacity-0');
+			});
+
+			// Show selected slide
+			if (slides[index]) {
+				slides[index].classList.remove('opacity-0');
+				slides[index].classList.add('opacity-100');
+			}
+
+			// Update dots
+			dots.forEach((dot, i) => {
+				if (i === index) {
+					dot.classList.remove('opacity-30');
+					dot.classList.add('opacity-100');
+				} else {
+					dot.classList.remove('opacity-100');
+					dot.classList.add('opacity-30');
+				}
+			});
+
+			currentSlide = index;
+		}
+
+		// Add click handlers to dots
+		dots.forEach((dot, index) => {
+			dot.addEventListener('click', () => {
+				showSlide(index);
+			});
+		});
+	});
+</script>
 
 <style>
 	/* Keep event horizon styles scoped */
