@@ -1,0 +1,126 @@
+---
+// Event Horizon SVG Component
+---
+
+<div class="event-horizon">
+	<svg class="horizon-graphic" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+		<defs>
+			<radialGradient id="horizonGradient">
+				<stop offset="0%" style="stop-color:#6366f1;stop-opacity:0.8" />
+				<stop offset="50%" style="stop-color:#8b5cf6;stop-opacity:0.4" />
+				<stop offset="100%" style="stop-color:#1e1b4b;stop-opacity:0.1" />
+			</radialGradient>
+			<linearGradient id="stretchGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+				<stop offset="0%" style="stop-color:#06b6d4;stop-opacity:1" />
+				<stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+			</linearGradient>
+		</defs>
+
+		<!-- Central Event Horizon -->
+		<circle cx="600" cy="400" r="200" fill="url(#horizonGradient)" class="pulse-ring"/>
+
+		<!-- Stretching Grid Lines -->
+		<g class="stretch-lines">
+			<path d="M 100 400 Q 400 350, 600 400 T 1100 400" stroke="url(#stretchGradient)" stroke-width="2" fill="none" opacity="0.6" class="stretch-line line-1"/>
+			<path d="M 100 350 Q 400 310, 600 350 T 1100 350" stroke="url(#stretchGradient)" stroke-width="1.5" fill="none" opacity="0.4" class="stretch-line line-2"/>
+			<path d="M 100 450 Q 400 490, 600 450 T 1100 450" stroke="url(#stretchGradient)" stroke-width="1.5" fill="none" opacity="0.4" class="stretch-line line-3"/>
+			<path d="M 100 300 Q 400 270, 600 300 T 1100 300" stroke="url(#stretchGradient)" stroke-width="1" fill="none" opacity="0.3" class="stretch-line line-4"/>
+			<path d="M 100 500 Q 400 530, 600 500 T 1100 500" stroke="url(#stretchGradient)" stroke-width="1" fill="none" opacity="0.3" class="stretch-line line-5"/>
+		</g>
+
+		<!-- Particles approaching event horizon -->
+		<circle cx="300" cy="400" r="4" fill="#06b6d4" class="particle particle-1"/>
+		<circle cx="350" cy="380" r="3" fill="#8b5cf6" class="particle particle-2"/>
+		<circle cx="250" cy="420" r="3" fill="#06b6d4" class="particle particle-3"/>
+		<circle cx="850" cy="400" r="4" fill="#06b6d4" class="particle particle-4"/>
+		<circle cx="900" cy="380" r="3" fill="#8b5cf6" class="particle particle-5"/>
+	</svg>
+</div>
+
+<style>
+	.event-horizon {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		opacity: 0.6;
+	}
+
+	.horizon-graphic {
+		width: 100%;
+		height: 100%;
+	}
+
+	/* Animations */
+	@keyframes pulse {
+		0%, 100% {
+			opacity: 0.6;
+		}
+		50% {
+			opacity: 0.9;
+		}
+	}
+
+	@keyframes stretch {
+		0%, 100% {
+			transform: scaleX(1);
+		}
+		50% {
+			transform: scaleX(1.05);
+		}
+	}
+
+	@keyframes float {
+		0%, 100% {
+			transform: translateY(0) translateX(0);
+		}
+		50% {
+			transform: translateY(-20px) translateX(10px);
+		}
+	}
+
+	.pulse-ring {
+		animation: pulse 4s ease-in-out infinite;
+	}
+
+	.stretch-line {
+		animation: stretch 6s ease-in-out infinite;
+	}
+
+	.stretch-line.line-2 {
+		animation-delay: 0.5s;
+	}
+
+	.stretch-line.line-3 {
+		animation-delay: 1s;
+	}
+
+	.stretch-line.line-4 {
+		animation-delay: 1.5s;
+	}
+
+	.stretch-line.line-5 {
+		animation-delay: 2s;
+	}
+
+	.particle {
+		animation: float 3s ease-in-out infinite;
+	}
+
+	.particle-2 {
+		animation-delay: 0.5s;
+	}
+
+	.particle-3 {
+		animation-delay: 1s;
+	}
+
+	.particle-4 {
+		animation-delay: 1.5s;
+	}
+
+	.particle-5 {
+		animation-delay: 2s;
+	}
+</style>

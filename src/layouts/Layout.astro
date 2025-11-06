@@ -1,0 +1,191 @@
+---
+import '../styles/global.css';
+
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description = "Cutting Edge Experiences at the Edge of Fitness, Health & Longevity" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="h-full bg-neutral-950 text-base antialiased">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body class="flex min-h-full flex-col">
+		<!-- Header -->
+		<header class="relative z-50">
+			<div class="absolute top-2 right-0 left-0 z-40 pt-14" id="header-default">
+				<div class="mx-auto max-w-7xl px-6 lg:px-8">
+					<div class="mx-auto max-w-2xl lg:max-w-none">
+						<div class="flex items-center justify-between">
+							<a href="/" class="text-xl font-semibold text-white no-underline hover:opacity-80 transition-opacity">
+								Inflection Point Partners
+							</a>
+							<div class="flex items-center gap-x-8">
+								<button
+									type="button"
+									id="menu-toggle"
+									class="group -m-2.5 rounded-full p-2.5 transition hover:bg-white/10"
+									aria-label="Toggle navigation"
+								>
+									<svg class="h-6 w-6" viewBox="0 0 24 24" aria-hidden="true">
+										<path d="M2 6h20v2H2zM2 16h20v2H2z" fill="white" />
+									</svg>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Navigation Panel with Animation -->
+			<div
+				id="nav-panel"
+				class="relative z-50 overflow-hidden bg-neutral-950 pt-2"
+				style="height: 0.5rem; transition: height 0.5s cubic-bezier(0.4, 0, 0.2, 1);"
+			>
+				<div class="bg-neutral-800" style="transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);">
+					<div class="bg-neutral-950 pt-14 pb-16">
+						<div class="mx-auto max-w-7xl px-6 lg:px-8">
+							<div class="mx-auto max-w-2xl lg:max-w-none">
+								<div class="flex items-center justify-between">
+									<a href="/" class="text-xl font-semibold text-white no-underline hover:opacity-80 transition-opacity">
+										Inflection Point Partners
+									</a>
+									<div class="flex items-center gap-x-8">
+										<button
+											type="button"
+											id="menu-close"
+											class="group -m-2.5 rounded-full p-2.5 transition hover:bg-white/10"
+											aria-label="Close navigation"
+										>
+											<svg class="h-6 w-6" viewBox="0 0 24 24" aria-hidden="true">
+												<path d="m5.636 4.223 14.142 14.142-1.414 1.414L4.222 5.637z" fill="white" />
+												<path d="M4.222 18.363 18.364 4.22l1.414 1.414L5.636 19.777z" fill="white" />
+											</svg>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Navigation Links -->
+				<nav class="mt-px font-display text-5xl font-medium tracking-tight text-white">
+					<div class="even:mt-px sm:bg-neutral-950">
+						<div class="mx-auto max-w-7xl px-6 lg:px-8">
+							<div class="mx-auto max-w-2xl lg:max-w-none">
+								<div class="grid grid-cols-1 sm:grid-cols-2">
+									<a
+										href="/"
+										class="group relative isolate -mx-6 bg-neutral-950 px-6 py-10 even:mt-px sm:mx-0 sm:px-0 sm:py-16 sm:odd:pr-16 sm:even:mt-0 sm:even:border-l sm:even:border-neutral-800 sm:even:pl-16 no-underline"
+									>
+										<span class="font-display text-base font-semibold text-white">Home</span>
+										<span class="absolute inset-y-0 -z-10 w-screen bg-neutral-900 opacity-0 transition group-odd:right-0 group-even:left-0 group-hover:opacity-100"></span>
+									</a>
+									<a
+										href="/about"
+										class="group relative isolate -mx-6 bg-neutral-950 px-6 py-10 even:mt-px sm:mx-0 sm:px-0 sm:py-16 sm:odd:pr-16 sm:even:mt-0 sm:even:border-l sm:even:border-neutral-800 sm:even:pl-16 no-underline"
+									>
+										<span class="font-display text-base font-semibold text-white">About</span>
+										<span class="absolute inset-y-0 -z-10 w-screen bg-neutral-900 opacity-0 transition group-odd:right-0 group-even:left-0 group-hover:opacity-100"></span>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</nav>
+			</div>
+		</header>
+
+		<!-- Main content area with white background and rounded top -->
+		<div class="relative flex flex-auto overflow-hidden bg-white pt-14" style="border-top-left-radius: 40px; border-top-right-radius: 40px; transition: border-top-left-radius 0.5s cubic-bezier(0.4, 0, 0.2, 1), border-top-right-radius 0.5s cubic-bezier(0.4, 0, 0.2, 1);">
+			<div class="relative isolate flex w-full flex-col pt-9">
+				<main class="w-full flex-auto">
+					<slot />
+				</main>
+
+				<!-- Footer -->
+				<footer class="mt-24 w-full sm:mt-32 lg:mt-40">
+					<div class="mx-auto max-w-7xl px-6 lg:px-8">
+						<div class="mx-auto max-w-2xl lg:max-w-none">
+							<div class="border-t border-neutral-950/10 pt-12 pb-12">
+								<div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+									<p class="text-sm text-neutral-600">&copy; 2025 Inflection Point Partners. All rights reserved.</p>
+									<a href="mailto:adetchells@gmail.com" class="text-sm text-neutral-600 hover:text-neutral-950 transition-colors no-underline">Privacy Policy</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</footer>
+			</div>
+		</div>
+
+		<script>
+			// Menu toggle functionality with animation
+			const menuToggle = document.getElementById('menu-toggle');
+			const menuClose = document.getElementById('menu-close');
+			const navPanel = document.getElementById('nav-panel');
+			const headerDefault = document.getElementById('header-default');
+			const mainContent = document.querySelector('.bg-white');
+
+			let isExpanded = false;
+
+			function openMenu() {
+				if (navPanel && headerDefault && mainContent) {
+					isExpanded = true;
+					// Animate panel height
+					navPanel.style.height = 'auto';
+					// Hide default header
+					headerDefault.setAttribute('aria-hidden', 'true');
+					headerDefault.style.pointerEvents = 'none';
+					// Remove rounded corners from main content
+					mainContent.style.borderTopLeftRadius = '0px';
+					mainContent.style.borderTopRightRadius = '0px';
+				}
+			}
+
+			function closeMenu() {
+				if (navPanel && headerDefault && mainContent) {
+					isExpanded = false;
+					// Collapse panel
+					navPanel.style.height = '0.5rem';
+					// Show default header
+					headerDefault.setAttribute('aria-hidden', 'false');
+					headerDefault.style.pointerEvents = 'auto';
+					// Restore rounded corners
+					mainContent.style.borderTopLeftRadius = '40px';
+					mainContent.style.borderTopRightRadius = '40px';
+				}
+			}
+
+			menuToggle?.addEventListener('click', openMenu);
+			menuClose?.addEventListener('click', closeMenu);
+
+			// Close menu when clicking a link
+			const navLinks = navPanel?.querySelectorAll('a');
+			navLinks?.forEach(link => {
+				link.addEventListener('click', (e) => {
+					// Don't prevent default, let navigation happen
+					closeMenu();
+				});
+			});
+
+			// Close menu on escape key
+			document.addEventListener('keydown', (e) => {
+				if (e.key === 'Escape' && isExpanded) {
+					closeMenu();
+				}
+			});
+		</script>
+	</body>
+</html>
