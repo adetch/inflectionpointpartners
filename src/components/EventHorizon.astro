@@ -1,126 +1,339 @@
 ---
-// Event Horizon SVG Component
+const circleDash = (radius: number, visible: number) => {
+	const circumference = 2 * Math.PI * radius;
+	return `${visible} ${Math.max(circumference - visible, 0)}`;
+};
+
+const lensArcs = [
+	{ radius: 185, visible: 280, offset: 40, delay: 0 },
+	{ radius: 215, visible: 220, offset: 140, delay: 0.45 },
+	{ radius: 250, visible: 180, offset: 260, delay: 0.9 },
+].map((arc) => ({
+	...arc,
+	dashArray: circleDash(arc.radius, arc.visible),
+}));
+
+const particles = Array.from({ length: 18 }, (_, i) => {
+	const orbit = 120 + (i % 6) * 18;
+	const size = i % 5 === 0 ? 4 : 3;
+	const duration = 8 + (i % 4);
+	const delay = i * 0.35;
+
+	return {
+		id: i,
+		orbit,
+		size,
+		duration,
+		delay,
+	};
+});
 ---
 
-<div class="event-horizon">
+<div class="event-horizon" aria-hidden="true">
+	<div class="stellar-noise"></div>
+	<div class="stellar-noise noise-2"></div>
+
 	<svg class="horizon-graphic" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
 		<defs>
-			<radialGradient id="horizonGradient">
-				<stop offset="0%" style="stop-color:#6366f1;stop-opacity:0.8" />
-				<stop offset="50%" style="stop-color:#8b5cf6;stop-opacity:0.4" />
-				<stop offset="100%" style="stop-color:#1e1b4b;stop-opacity:0.1" />
+			<radialGradient id="voidGradient" cx="50%" cy="50%" r="70%">
+				<stop offset="0%" stop-color="#d6d3d1" />
+				<stop offset="45%" stop-color="#e7e5e4" />
+				<stop offset="70%" stop-color="#f5f5f4" stop-opacity="0.6" />
+				<stop offset="100%" stop-color="#fafaf9" stop-opacity="0" />
 			</radialGradient>
-			<linearGradient id="stretchGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-				<stop offset="0%" style="stop-color:#06b6d4;stop-opacity:1" />
-				<stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+
+			<radialGradient id="coreGradient" cx="50%" cy="50%" r="55%">
+				<stop offset="0%" stop-color="#a8a29e" stop-opacity="0.8" />
+				<stop offset="40%" stop-color="#d6d3d1" stop-opacity="0.6" />
+				<stop offset="70%" stop-color="#e7e5e4" stop-opacity="0.3" />
+				<stop offset="100%" stop-color="#f5f5f4" stop-opacity="0" />
+			</radialGradient>
+
+			<linearGradient id="accretionGradient" x1="0%" y1="50%" x2="100%" y2="50%">
+				<stop offset="0%" stop-color="#a8a29e" stop-opacity="0.5" />
+				<stop offset="50%" stop-color="#78716c" stop-opacity="0.7" />
+				<stop offset="100%" stop-color="#a8a29e" stop-opacity="0.5" />
 			</linearGradient>
+
+			<filter id="softGlow" x="-150%" y="-150%" width="400%" height="400%">
+				<feGaussianBlur stdDeviation="50" result="blur" />
+				<feBlend in="SourceGraphic" in2="blur" mode="screen" />
+			</filter>
+
+			<mask id="eventMask">
+				<rect width="1200" height="800" fill="white" />
+				<circle cx="600" cy="400" r="120" fill="black" />
+			</mask>
 		</defs>
 
-		<!-- Central Event Horizon -->
-		<circle cx="600" cy="400" r="200" fill="url(#horizonGradient)" class="pulse-ring"/>
+		<rect width="1200" height="800" fill="transparent" />
 
-		<!-- Stretching Grid Lines -->
-		<g class="stretch-lines">
-			<path d="M 100 400 Q 400 350, 600 400 T 1100 400" stroke="url(#stretchGradient)" stroke-width="2" fill="none" opacity="0.6" class="stretch-line line-1"/>
-			<path d="M 100 350 Q 400 310, 600 350 T 1100 350" stroke="url(#stretchGradient)" stroke-width="1.5" fill="none" opacity="0.4" class="stretch-line line-2"/>
-			<path d="M 100 450 Q 400 490, 600 450 T 1100 450" stroke="url(#stretchGradient)" stroke-width="1.5" fill="none" opacity="0.4" class="stretch-line line-3"/>
-			<path d="M 100 300 Q 400 270, 600 300 T 1100 300" stroke="url(#stretchGradient)" stroke-width="1" fill="none" opacity="0.3" class="stretch-line line-4"/>
-			<path d="M 100 500 Q 400 530, 600 500 T 1100 500" stroke="url(#stretchGradient)" stroke-width="1" fill="none" opacity="0.3" class="stretch-line line-5"/>
+		<g filter="url(#softGlow)">
+			<circle cx="600" cy="400" r="170" fill="url(#coreGradient)" class="core-pulse" />
 		</g>
 
-		<!-- Particles approaching event horizon -->
-		<circle cx="300" cy="400" r="4" fill="#06b6d4" class="particle particle-1"/>
-		<circle cx="350" cy="380" r="3" fill="#8b5cf6" class="particle particle-2"/>
-		<circle cx="250" cy="420" r="3" fill="#06b6d4" class="particle particle-3"/>
-		<circle cx="850" cy="400" r="4" fill="#06b6d4" class="particle particle-4"/>
-		<circle cx="900" cy="380" r="3" fill="#8b5cf6" class="particle particle-5"/>
+		<circle cx="600" cy="400" r="140" fill="#d6d3d1" opacity="0.6" />
+
+		<g class="grid-waves">
+			<ellipse cx="600" cy="420" rx="360" ry="160" class="grid-wave" />
+			<ellipse cx="600" cy="420" rx="300" ry="140" class="grid-wave wave-2" />
+			<ellipse cx="600" cy="420" rx="240" ry="110" class="grid-wave wave-3" />
+			<ellipse cx="600" cy="420" rx="180" ry="80" class="grid-wave wave-4" />
+		</g>
+
+		<g class="accretion-disk" mask="url(#eventMask)">
+			<circle cx="600" cy="410" r="200" stroke="url(#accretionGradient)" stroke-width="6" fill="none" class="accretion-band" />
+			<circle cx="600" cy="410" r="225" stroke="url(#accretionGradient)" stroke-width="2" fill="none" stroke-dasharray="32 18" class="accretion-band band-2" />
+			<circle cx="600" cy="410" r="255" stroke="url(#accretionGradient)" stroke-width="1.2" fill="none" stroke-dasharray="18 24" class="accretion-band band-3" />
+		</g>
+
+		<g class="lens-arcs">
+			{lensArcs.map((arc) => (
+				<circle
+					cx="600"
+					cy="400"
+					r={arc.radius}
+					stroke="url(#accretionGradient)"
+					stroke-width="1.8"
+					fill="none"
+					stroke-dasharray={arc.dashArray}
+					stroke-dashoffset={arc.offset}
+					style={`animation-delay:${arc.delay}s`}
+				/>
+			))}
+		</g>
+
+		<circle cx="600" cy="400" r="118" fill="#a8a29e" class="event-threshold" />
 	</svg>
+
+	<div class="particle-orbits">
+		{particles.map((particle) => (
+			<span
+				class="particle"
+				style={`--delay:${particle.delay}s;--duration:${particle.duration}s;--orbit:${particle.orbit}px;--size:${particle.size}px`}
+			></span>
+		))}
+	</div>
 </div>
 
 <style>
 	.event-horizon {
 		position: absolute;
-		top: 0;
-		left: 0;
+		inset: 0;
 		width: 100%;
 		height: 100%;
-		opacity: 0.6;
+		overflow: hidden;
+		isolation: isolate;
 	}
 
 	.horizon-graphic {
-		width: 100%;
-		height: 100%;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 150%;
+		height: 150%;
+		display: block;
+		filter: saturate(1.2);
 	}
 
-	/* Animations */
-	@keyframes pulse {
-		0%, 100% {
-			opacity: 0.6;
-		}
-		50% {
-			opacity: 0.9;
-		}
+	.stellar-noise {
+		position: absolute;
+		inset: -20%;
+		background: radial-gradient(circle at 30% 20%, rgba(168, 162, 158, 0.3), transparent 50%),
+			radial-gradient(circle at 70% 80%, rgba(168, 162, 158, 0.25), transparent 55%),
+			radial-gradient(circle at 20% 80%, rgba(168, 162, 158, 0.2), transparent 50%);
+		opacity: 0.4;
+		filter: blur(40px);
+		animation: noise-pan 18s linear infinite;
+		mix-blend-mode: multiply;
 	}
 
-	@keyframes stretch {
-		0%, 100% {
-			transform: scaleX(1);
-		}
-		50% {
-			transform: scaleX(1.05);
-		}
+	.stellar-noise.noise-2 {
+		animation-duration: 24s;
+		animation-direction: reverse;
+		opacity: 0.25;
+		filter: blur(60px);
 	}
 
-	@keyframes float {
-		0%, 100% {
-			transform: translateY(0) translateX(0);
-		}
-		50% {
-			transform: translateY(-20px) translateX(10px);
-		}
+	.core-pulse {
+		animation: pulse 6s ease-in-out infinite;
 	}
 
-	.pulse-ring {
-		animation: pulse 4s ease-in-out infinite;
+	.grid-waves {
+		mix-blend-mode: screen;
 	}
 
-	.stretch-line {
-		animation: stretch 6s ease-in-out infinite;
+	.grid-wave {
+		fill: none;
+		stroke: rgba(168, 162, 158, 0.4);
+		stroke-width: 1.5;
+		animation: ripple 9s ease-in-out infinite;
 	}
 
-	.stretch-line.line-2 {
-		animation-delay: 0.5s;
-	}
-
-	.stretch-line.line-3 {
+	.grid-wave.wave-2 {
 		animation-delay: 1s;
+		opacity: 0.7;
 	}
 
-	.stretch-line.line-4 {
-		animation-delay: 1.5s;
-	}
-
-	.stretch-line.line-5 {
+	.grid-wave.wave-3 {
 		animation-delay: 2s;
+		opacity: 0.5;
+	}
+
+	.grid-wave.wave-4 {
+		animation-delay: 3s;
+		opacity: 0.35;
+	}
+
+	.accretion-disk {
+		mix-blend-mode: screen;
+	}
+
+	.accretion-band {
+		animation: swirl 14s linear infinite;
+		stroke-linecap: round;
+	}
+
+	.accretion-band.band-2 {
+		animation-duration: 18s;
+		animation-direction: reverse;
+		opacity: 0.8;
+	}
+
+	.accretion-band.band-3 {
+		animation-duration: 22s;
+		opacity: 0.6;
+	}
+
+	.lens-arcs circle {
+		opacity: 0.85;
+		animation: arc-trace 10s ease-in-out infinite;
+	}
+
+	.event-threshold {
+		animation: event-glow 8s ease-in-out infinite;
+	}
+
+	.particle-orbits {
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
 	}
 
 	.particle {
-		animation: float 3s ease-in-out infinite;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: var(--size);
+		height: var(--size);
+		border-radius: 9999px;
+		background: radial-gradient(circle, #d6d3d1 0%, #a8a29e 60%, rgba(168, 162, 158, 0.5) 100%);
+		box-shadow: 0 0 8px rgba(168, 162, 158, 0.5), 0 0 16px rgba(168, 162, 158, 0.3);
+		transform-origin: 0 0;
+		animation: orbit var(--duration) linear infinite;
+		animation-delay: calc(var(--delay) * -1);
+		opacity: 0;
 	}
 
-	.particle-2 {
-		animation-delay: 0.5s;
+	@keyframes pulse {
+		0%,
+		100% {
+			transform: scale(0.92);
+			opacity: 0.7;
+		}
+		50% {
+			transform: scale(1);
+			opacity: 1;
+		}
 	}
 
-	.particle-3 {
-		animation-delay: 1s;
+	@keyframes ripple {
+		0%,
+		100% {
+			transform: scaleX(1);
+		}
+		50% {
+			transform: scaleX(1.02);
+		}
 	}
 
-	.particle-4 {
-		animation-delay: 1.5s;
+	@keyframes swirl {
+		0% {
+			transform: rotate(0deg);
+		}
+		100% {
+			transform: rotate(360deg);
+		}
 	}
 
-	.particle-5 {
-		animation-delay: 2s;
+	@keyframes arc-trace {
+		0% {
+			opacity: 0;
+			transform: rotate(0deg);
+		}
+		20% {
+			opacity: 0.9;
+		}
+		80% {
+			opacity: 0.4;
+		}
+		100% {
+			opacity: 0;
+			transform: rotate(360deg);
+		}
+	}
+
+	@keyframes orbit {
+		0% {
+			transform: rotate(0deg) translateX(var(--orbit)) scale(0.8);
+			opacity: 0;
+		}
+		15% {
+			opacity: 1;
+		}
+		60% {
+			opacity: 0.7;
+		}
+		100% {
+			transform: rotate(360deg) translateX(var(--orbit)) scale(1.1);
+			opacity: 0;
+		}
+	}
+
+	@keyframes event-glow {
+		0%,
+		100% {
+			filter: drop-shadow(0 0 10px rgba(168, 162, 158, 0.3));
+			opacity: 0.7;
+		}
+		50% {
+			filter: drop-shadow(0 0 25px rgba(168, 162, 158, 0.4));
+			opacity: 0.85;
+		}
+	}
+
+	@keyframes noise-pan {
+		0% {
+			transform: translate3d(0, 0, 0) scale(1);
+		}
+		50% {
+			transform: translate3d(5%, -5%, 0) scale(1.05);
+		}
+		100% {
+			transform: translate3d(-3%, 4%, 0) scale(1);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.stellar-noise,
+		.grid-wave,
+		.accretion-band,
+		.lens-arcs circle,
+		.core-pulse,
+		.particle,
+		.event-threshold {
+			animation-play-state: paused;
+		}
 	}
 </style>
